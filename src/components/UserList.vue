@@ -85,19 +85,12 @@ export default {
       currentUser.isEdit = !currentUser.isEdit;
     },
     getNewList() {
-      this.users = [];
       axios
         .get(`${this.$httpRequest}/getAll`)
         .then((response) => {
-          response.data.forEach((user) => {
-            const userCopy = {
-              userData: user,
-              isEdit: false,
-            };
-            this.users.push(userCopy);
-          });
+          this.users = response.data.map((user) => ({ userData: user, isEdit: false }));
           this.isAddCard = false;
-          this.usersQuantity = response.data.length;
+          this.usersQuantity = this.users.length;
         });
     },
     addNewUser() {
