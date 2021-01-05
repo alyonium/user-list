@@ -29,17 +29,17 @@
         class="mb-10">
           <edit-card
             v-if="user.isEdit"
-            :onToggle="handleEditToggle"
-            :onCancel="onCancel"
             :user="user.userData"
-            @update-list="getNewList()"
+            @toggle="handleEditToggle"
+            @cancel="getNewList"
+            @update-list="getNewList"
           />
           <view-card
             v-else
-            :onToggle="handleEditToggle"
-            :onCancel="onCancel"
             :user="user.userData"
-            @update-list="getNewList()"
+            @toggle="handleEditToggle"
+            @cancel="getNewList"
+            @update-list="getNewList"
           />
       </v-col>
       <v-col
@@ -47,7 +47,10 @@
         offset="2"
         class="mb-10"
         v-if="isAddCard">
-        <add-card :onCancel="onCancel" :isAddCard="isAddCard" @update-list="getNewList()"/>
+        <add-card
+          :isAddCard="isAddCard"
+          @cancel="getNewList()"
+          @update-list="getNewList()"/>
       </v-col>
     </v-row>
   </v-container>
@@ -99,9 +102,6 @@ export default {
     },
     addNewUser() {
       this.isAddCard = true;
-    },
-    onCancel() {
-      this.getNewList();
     },
   },
 };

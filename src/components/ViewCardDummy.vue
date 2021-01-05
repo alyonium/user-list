@@ -6,13 +6,13 @@
         <v-btn
           color="teal lighten-2"
           elevation="2"
-          @click="onToggle(user.id)">
+          @click="onEdit">
           Edit
         </v-btn>
         <v-btn
           color="red lighten-2"
           elevation="2"
-          @click="onDelete()">
+          @click="onDelete">
           Delete
         </v-btn>
       </v-card-actions>
@@ -26,8 +26,14 @@ export default {
   name: 'VueCardDummy',
   props: {
     user: Object,
-    onToggle: Function,
-    onDelete: Function,
+  },
+  methods: {
+    onEdit() {
+      this.$emit('toggle', this.user.id);
+    },
+    onDelete() {
+      this.$emit('delete');
+    },
   },
 };
 </script>

@@ -1,5 +1,8 @@
 <template>
-  <view-card-dummy :onToggle="onToggle" :onDelete="onDelete" :onCancel="onCancel" :user="user"/>
+  <view-card-dummy
+    @toggle="onToggle"
+    @delete="onDelete"
+    :user="user"/>
 </template>
 
 <script>
@@ -13,8 +16,6 @@ export default {
   },
   props: {
     user: Object,
-    onToggle: Function,
-    onCancel: Function,
   },
   methods: {
     onDelete() {
@@ -23,6 +24,9 @@ export default {
         .then(() => {
           this.$emit('update-list');
         });
+    },
+    onToggle(id) {
+      this.$emit('toggle', id);
     },
   },
 };

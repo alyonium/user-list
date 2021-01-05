@@ -1,5 +1,8 @@
 <template>
-  <edit-card-dummy :onSave="onSave" :onCancel="onCancel" :isFull="isFull"/>
+  <edit-card-dummy
+    @save="onSave"
+    @cancel="onCancel"
+    :isFull="isFull"/>
 </template>
 
 <script>
@@ -12,17 +15,21 @@ export default {
     EditCardDummy,
   },
   props: {
-    onCancel: Function,
     isAddCard: Boolean,
   },
   data() {
     return {
-      isFull: false,
+      isFull: true,
     };
   },
   methods: {
     onSave(newName, newAge) {
-      this.isFull = !(newName === '' || newAge === '');
+      if (newName === '' || newAge === ''
+          || newName === undefined || newAge === undefined) {
+        this.isFull = false;
+      } else {
+        this.isFull = true;
+      }
 
       if (this.isFull) {
         axios
@@ -34,6 +41,9 @@ export default {
             this.$emit('update-list');
           });
       }
+    },
+    onCancel() {
+      this.$emit('cancel');
     },
   },
 };

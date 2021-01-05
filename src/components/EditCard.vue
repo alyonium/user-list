@@ -1,5 +1,10 @@
 <template>
-  <edit-card-dummy :onSave="onSave" :onCancel="onCancel" :user="user" :isFull="isFull"/>
+  <edit-card-dummy
+    :user="user"
+    :isFull="isFull"
+    @save="onSave"
+    @cancel="onCancel"
+    />
 </template>
 
 <script>
@@ -14,7 +19,6 @@ export default {
   props: {
     user: Object,
     onToggle: Function,
-    onCancel: Function,
   },
   data() {
     return {
@@ -32,15 +36,14 @@ export default {
             age: parseInt(newAge, 10),
           })
           .then(() => {
-            this.onToggle(id);
+            this.$emit('toggle', id);
             this.$emit('update-list');
           });
       }
     },
+    onCancel() {
+      this.$emit('cancel');
+    },
   },
 };
 </script>
-
-<style scoped>
-
-</style>

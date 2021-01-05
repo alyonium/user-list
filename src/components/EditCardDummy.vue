@@ -6,13 +6,13 @@
         <v-btn
           color="teal lighten-2"
           elevation="2"
-          @click="onSave(newName, newAge, id)">
+          @click="onSave">
           Save
         </v-btn>
         <v-btn
           color="red lighten-2"
           elevation="2"
-          @click="onCancel()">
+          @click="onCancel">
           Cancel
         </v-btn>
       </v-card-actions>
@@ -38,16 +38,22 @@ export default {
   name: 'EditCardDummy',
   props: {
     user: Object,
-    onSave: Function,
-    onCancel: Function,
     isFull: Boolean,
   },
   data() {
     return {
       newName: this?.user?.name,
       newAge: this?.user?.age,
-      id: this?.user?.id,
+      newId: this?.user?.id,
     };
+  },
+  methods: {
+    onSave() {
+      this.$emit('save', this.newName, this.newAge, this.newId);
+    },
+    onCancel() {
+      this.$emit('cancel');
+    },
   },
 };
 </script>
